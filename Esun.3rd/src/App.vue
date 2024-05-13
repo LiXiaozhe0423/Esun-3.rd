@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
+import Navbar from "./components/Navbar.vue";
+import HomeView from "./views/HomeView.vue";
+
 const responseData = ref([]);
 
 async function example() {
@@ -17,10 +20,13 @@ async function example() {
 
 <template>
   <div>
-    <button @click="example">戳我</button>
+<HomeView/>
     <div>
+      <button @click="example">戳我</button>
       <ul>
         <li>顯示清單</li>
+        <li>臨時停車處所</li>
+        <li>小型車停車位數量</li>
         <li v-for="item in responseData">{{ item }}</li>
       </ul>
     </div>

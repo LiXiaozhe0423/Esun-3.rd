@@ -1,9 +1,40 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import Navbar from '../components/Navbar.vue'
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="container">
+    <Navbar />
+    <div class="content">
+      <div class="left">
+        <h2>Parking 動態停車查詢服務</h2>
+        <p>查詢即時停車位，找車位很easy!</p>
+        <button type="button" class="btn btn-primary">Get started</button>
+      </div>
+      <div class="right">
+        <img src="../assets/car.jpg" alt="">
+      </div>
+    </div>
+  </div>
 </template>
+<style>
+.container {
+  padding-top: 50px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.left {
+  padding-right: 20px;
+}
+
+.right img {
+  width: 100%;
+  height: auto;
+  max-width: 600px;
+}
+</style>
