@@ -17,9 +17,11 @@ import Navbar from '../components/Navbar.vue'
     </div>
   </div>
 </template>
+
 <style>
 .container {
   padding-top: 50px;
+  max-width: 1100px;
 }
 
 .content {
