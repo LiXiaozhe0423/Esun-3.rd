@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import Navbar from '../components/Navbar.vue'
+import DataView from '../components/DataView.vue'
+
 </script>
 
 <template>
@@ -15,6 +17,8 @@ import Navbar from '../components/Navbar.vue'
         <img src="../assets/car.jpg" alt="">
       </div>
     </div>
+    <!-- 先做出下方下拉選單渲染 -->
+    <DataView/>
   </div>
 </template>
 
