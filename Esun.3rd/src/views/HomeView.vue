@@ -17,7 +17,7 @@ import DataView from '../components/DataView.vue'
         <img src="../assets/car.jpg" alt="">
       </div>
     </div>
-    <!-- 先做出下方下拉選單渲染 -->
+    <!-- 先做出下方下拉選單渲染 TODO 想要把這邊變成點擊按鈕後可以跳轉到dataview頁面但還沒成功-->
     <DataView/>
   </div>
 </template>
@@ -44,5 +44,6 @@ import DataView from '../components/DataView.vue'
   width: 100%;
   height: auto;
   max-width: 600px;
+  border-radius: 10px;
 }
 </style>
