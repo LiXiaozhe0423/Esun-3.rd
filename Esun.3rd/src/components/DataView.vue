@@ -52,43 +52,51 @@ onMounted(async ()=>{
 <template>
   <div class="container">
     <div class="topic">
-      <h1>高雄市即時停車位查詢</h1>
+      <h2>高雄市即時停車位查詢</h2>
     </div>
     <!-- 下拉選單 -->
     <div class="selection">
-      <p>請選擇行政區</p>
-      <select v-model="selectedDistrict">
+      <h3>請選擇行政區</h3>
+      <select v-model="selectedDistrict" class="custom-select">
         <option :value="''">全部區域</option>
         <option v-for="district in districts" :key="district" :value="district" >{{ district }}</option>
       </select>
     </div>
-    <div v-if="filterParkingData.length>0"  :key="parking.seq" v-for="parking in filterParkingData" class="info">
-      <p>行政區：{{ parking.area }}</p>
-      <p>臨時停車處所：{{ parking.name }}</p>
-      <p>可提供小型車停車位：{{ parking.count }}</p>
-      <p>地址：{{ parking.address }}</p>
+    <div class="parking-list">
+      <div v-if="filterParkingData.length>0"  :key="parking.seq" v-for="parking in filterParkingData" class="info">
+        <p>行政區：{{ parking.area }}</p>
+        <p>臨時停車處所：{{ parking.name }}</p>
+        <p>可提供小型車停車位：{{ parking.count }}</p>
+        <p>地址：{{ parking.address }}</p>
     </div>
     <div v-else>
-      <p>該區域目前沒有停車位</p>
+      <p>該區域目前沒有停車位喔！</p>
     </div>
+    </div>
+  
   </div>
 </template>
 
 <style scoped>
-.topic{
-  background-color:#F2CB05 ;
+.container {
+  display: flex;
+  flex-direction: column;
   text-align: center;
 }
-.selection {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  background-color:#BF9004 ;
+.topic{
+  padding: 10px;
+}
+.custom-select {
+  width: 80%; 
+  padding: 10px; 
+  font-size: 1.5rem; 
+  border-radius: 5px; 
+  text-align: center;
 }
 .info {
   background-color: #F2B705;
-  border-radius: 5px;
+  border-radius: 10px;
   margin: 10px;
-  padding: 5px;
+  padding: 15px;
 }
 </style>
