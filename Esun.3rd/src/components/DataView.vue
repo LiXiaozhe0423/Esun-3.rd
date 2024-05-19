@@ -56,7 +56,7 @@ onMounted(async ()=>{
     </div>
     <!-- 下拉選單 -->
     <div class="selection">
-      <h3>請選擇行政區</h3>
+      <h4>請選擇行政區</h4>
       <select v-model="selectedDistrict" class="custom-select">
         <option :value="''">全部區域</option>
         <option v-for="district in districts" :key="district" :value="district" >{{ district }}</option>
@@ -89,7 +89,7 @@ onMounted(async ()=>{
 .custom-select {
   width: 80%; 
   padding: 10px; 
-  font-size: 1.5rem; 
+  font-size: 1rem; 
   border-radius: 5px; 
   text-align: center;
 }

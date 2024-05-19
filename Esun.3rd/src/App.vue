@@ -4,10 +4,14 @@ import HomeView from "./views/HomeView.vue";
 </script>
 
 <template>
-
-  <HomeView />
-
+  <div>
+    <HomeView />
+  </div>
 
 </template>
 
-<style scoped></style>
+<style scoped>
+div {
+  background-color:gainsboro;
+}
+</style>

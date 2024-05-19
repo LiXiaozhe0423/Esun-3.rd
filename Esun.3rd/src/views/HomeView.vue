@@ -24,14 +24,16 @@ import DataView from '../components/DataView.vue'
 
 <style>
 .container {
-  padding-top: 50px;
+  padding-top: 30px;
   max-width: 1100px;
+  background-color: white;
 }
 
 .content {
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: white;
 }
 
 .left {
