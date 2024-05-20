@@ -1,22 +1,23 @@
 <script setup lang="ts">
 import { computed, onMounted, ref } from 'vue';
 import axios from 'axios';
-import {Parking, ParkingDto} from '../assets/type';
+import type { Parking, ParkingDto } from '../assets/type';
 
 //data
 const selectedDistrict = ref<string>('');
 //存放資料
 const parkings = ref<Parking[]>();
 //computed 已被篩選過的資料，如果選定特定行政區就顯示出該行政區即時資料
-const filterParkingData = computed<Parking[]>(()=>{
+const filterParkingData = computed<Parking[]>(() => {
   if (parkings.value) {
+
     return selectedDistrict.value
-      ? parkings.value.filter(element => 
-      element.area.includes(selectedDistrict.value))
+      ? parkings.value.filter(element =>
+        element.area.includes(selectedDistrict.value))
       : parkings.value;
   } else {
     return [];
-  } 
+  }
 });
 // 下拉選單selection內的值，個行政區列表
 const districts = [
@@ -29,6 +30,7 @@ const districts = [
 async function fetchParkingData() {
   try {
     const response = await axios.get('https://api.kcg.gov.tw/api/service/Get/897e552a-2887-4f6f-a6ee-709f7fbe0ee3');
+    console.log(response.data)
     parkings.value = response.data.data.map((item: ParkingDto) => ({
       seq: item.seq,
       area: item.行政區,
@@ -42,10 +44,9 @@ async function fetchParkingData() {
   }
 }
 
-onMounted(async ()=>{
+onMounted(async () => {
   await fetchParkingData()
 });
-  
 
 </script>
 
@@ -55,25 +56,40 @@ onMounted(async ()=>{
       <h2>高雄市即時停車位查詢</h2>
     </div>
     <!-- 下拉選單 -->
-    <div class="selection">
-      <h4>請選擇行政區</h4>
-      <select v-model="selectedDistrict" class="custom-select">
-        <option :value="''">全部區域</option>
-        <option v-for="district in districts" :key="district" :value="district" >{{ district }}</option>
-      </select>
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <div class="selection">
+          <select v-model="selectedDistrict" class="custom-select">
+            <option :value="''">全部區域</option>
+            <option v-for="district in districts" :key="district" :value="district">{{ district }}
+            </option>
+          </select>
+        </div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          </ul>
+          <div>
+            <input class="form-control me-2" placeholder="Search">
+          </div>
+          <div>
+            <button class="btn btn-outline-success">Search</button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
     <div class="parking-list">
-      <div v-if="filterParkingData.length>0"  :key="parking.seq" v-for="parking in filterParkingData" class="info">
+      <div v-if="filterParkingData.length > 0" :key="parking.seq" v-for="parking in filterParkingData" class="info">
         <p>行政區：{{ parking.area }}</p>
         <p>臨時停車處所：{{ parking.name }}</p>
         <p>可提供小型車停車位：{{ parking.count }}</p>
         <p>地址：{{ parking.address }}</p>
+      </div>
+      <div v-else>
+        <p>該區域目前沒有停車位喔！</p>
+      </div>
     </div>
-    <div v-else>
-      <p>該區域目前沒有停車位喔！</p>
-    </div>
-    </div>
-  
+
   </div>
 </template>
 
@@ -83,16 +99,19 @@ onMounted(async ()=>{
   flex-direction: column;
   text-align: center;
 }
-.topic{
+
+.topic {
   padding: 10px;
 }
+
 .custom-select {
-  width: 80%; 
-  padding: 10px; 
-  font-size: 1rem; 
-  border-radius: 5px; 
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
   text-align: center;
 }
+
 .info {
   background-color: #F2B705;
   border-radius: 10px;

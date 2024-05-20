@@ -1,24 +1,23 @@
 <script setup lang="ts">
-import Navbar from '../components/Navbar.vue'
-import DataView from '../components/DataView.vue'
+
 
 </script>
 
 <template>
   <div class="container">
-    <Navbar />
     <div class="content">
       <div class="left">
         <h2>Parking 動態停車查詢服務</h2>
         <p>查詢即時停車位，找車位很easy!</p>
-        <button type="button" class="btn btn-primary">Get started</button>
+        <RouterLink to="/showData">
+          <button type="button" class="btn btn-primary">Get started</button>
+        </RouterLink>
       </div>
       <div class="right">
         <img src="../assets/car.jpg" alt="">
       </div>
     </div>
-    <!-- 先做出下方下拉選單渲染 TODO 想要把這邊變成點擊按鈕後可以跳轉到dataview頁面但還沒成功-->
-    <DataView/>
+
   </div>
 </template>
 

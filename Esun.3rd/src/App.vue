@@ -1,17 +1,21 @@
 <script setup lang="ts">
-import HomeView from "./views/HomeView.vue";
+import Navbar from './components/Navbar.vue'
+
 
 </script>
 
 <template>
-  <div>
-    <HomeView />
-  </div>
+  <div class="container">
+    <Navbar />
 
+    <RouterView />
+
+
+  </div>
 </template>
 
 <style scoped>
 div {
-  background-color:gainsboro;
+  background-color: ghostwhite;
 }
 </style>
