@@ -5,17 +5,14 @@ import Navbar from './components/Navbar.vue'
 </script>
 
 <template>
-  <div class="container">
+  <div>
     <Navbar />
 
     <RouterView />
-
 
   </div>
 </template>
 
 <style scoped>
-div {
-  background-color: ghostwhite;
-}
+
 </style>

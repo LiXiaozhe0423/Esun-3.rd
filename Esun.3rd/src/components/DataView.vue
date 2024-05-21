@@ -5,21 +5,34 @@ import type { Parking, ParkingDto } from '../assets/type';
 
 //data
 const selectedDistrict = ref<string>('');
+const searchQuery = ref<string>('');
 //存放資料
 const parkings = ref<Parking[]>();
 //computed 已被篩選過的資料，如果選定特定行政區就顯示出該行政區即時資料
 const filterParkingData = computed<Parking[]>(() => {
   if (parkings.value) {
+    let filteredData = parkings.value;
 
-    return selectedDistrict.value
-      ? parkings.value.filter(element =>
-        element.area.includes(selectedDistrict.value))
-      : parkings.value;
-  } else {
+    if (selectedDistrict.value) {
+      filteredData = filteredData.filter(element =>
+        element.area.includes(selectedDistrict.value)
+      );
+    }
+
+    if (searchQuery.value.trim) {
+      filteredData = filteredData.filter(element =>
+        element.area.includes(searchQuery.value)||
+        element.name.includes(searchQuery.value) ||
+        element.address.includes(searchQuery.value)
+      );
+    }
+    return filteredData;
+  } 
+  else {
     return [];
   }
 });
-// 下拉選單selection內的值，個行政區列表
+// 下拉選單selection內的值，各行政區列表
 const districts = [
   "前金", "新興", "鹽埕", "左營", "楠梓", "鼓山", "旗津", "苓雅", "三民", "前鎮",
   "小港", "鳳山", "鳥松", "大社", "仁武", "大樹", "岡山", "燕巢", "梓官", "永安",
@@ -69,28 +82,30 @@ onMounted(async () => {
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           </ul>
           <div>
-            <input class="form-control me-2" placeholder="Search">
+            <input v-model.trim="searchQuery" class="form-control me-2" placeholder="Search">
           </div>
           <div>
-            <button class="btn btn-outline-success">Search</button>
+            <button class="btn btn-outline-success" @click="fetchParkingData">Search</button>
           </div>
         </div>
       </div>
     </nav>
-
-    <div class="parking-list">
-      <div v-if="filterParkingData.length > 0" :key="parking.seq" v-for="parking in filterParkingData" class="info">
-        <p>行政區：{{ parking.area }}</p>
-        <p>臨時停車處所：{{ parking.name }}</p>
-        <p>可提供小型車停車位：{{ parking.count }}</p>
-        <p>地址：{{ parking.address }}</p>
-      </div>
-      <div v-else>
-        <p>該區域目前沒有停車位喔！</p>
+    <div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col-sm-6" v-if="filterParkingData.length > 0" :key="parking.seq" v-for="parking in filterParkingData">
+      <div class="card mb-3">
+        <div class="card-body data">
+          <h5 class="card-title">行政區：{{ parking.area }}</h5>
+          <p class="card-text">臨時停車處所：{{ parking.name }}</p>
+          <p class="card-text">可提供小型車停車位：{{ parking.count }}</p>
+          <p class="card-text">地址：{{ parking.address }}</p>
+        </div>
       </div>
     </div>
-
+    <div v-else class="card-body text-center">
+      <h5>該區域目前沒有停車位喔！</h5>
+    </div>
   </div>
+</div>
 </template>
 
 <style scoped>
@@ -112,10 +127,8 @@ onMounted(async () => {
   text-align: center;
 }
 
-.info {
-  background-color: #F2B705;
-  border-radius: 10px;
-  margin: 10px;
-  padding: 15px;
+.data {
+  background-color: #8CBDB9;
 }
+
 </style>
